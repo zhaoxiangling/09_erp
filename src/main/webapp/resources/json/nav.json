@@ -1,0 +1,386 @@
+[
+	{
+		"id": 2,
+		"name": "基础管理",
+		"href": "",
+		"icon": "&#xe857;",
+		"spread": false,
+		"target": "",
+		"children": [
+			{
+				"id": 7,
+				"name": "客户管理",
+				"href": "../customer/toCustomerManager.action",
+				"icon": "&#xe651;",
+				"spread": false,
+				"target": "",
+				"children": [],
+				
+				"open": null,
+				"isParent": null,
+				"checked": null,
+				"pId": 2
+			},
+			{
+				"id": 8,
+				"name": "供应商管理",
+				"href": "../provider/toProviderManager.action",
+				"icon": "&#xe658;",
+				"spread": false,
+				"target": "",
+				"children": [],
+				
+				"open": null,
+				"isParent": null,
+				"checked": null,
+				"pId": 2
+			},
+			{
+				"id": 9,
+				"name": "商品管理",
+				"href": "../goods/toGoodsManager.action",
+				"icon": "&#xe657;",
+				"spread": false,
+				"target": "",
+				"children": [],
+				
+				"open": null,
+				"isParent": null,
+				"checked": null,
+				"pId": 2
+			}
+		],
+		
+		"open": null,
+		"isParent": null,
+		"checked": null,
+		"pId": 1
+	},
+	{
+		"id": 3,
+		"name": "进货管理",
+		"href": "",
+		"icon": "&#xe645;",
+		"spread": false,
+		"target": null,
+		"children": [
+			{
+				"id": 10,
+				"name": "商品进货",
+				"href": "../inport/toInportManager.action",
+				"icon": "&#xe756;",
+				"spread": false,
+				"target": "",
+				"children": [],
+				
+				"open": null,
+				"isParent": null,
+				"checked": null,
+				"pId": 3
+			},
+			{
+				"id": 11,
+				"name": "商品退货",
+				"href": "",
+				"icon": "&#xe65a;",
+				"spread": false,
+				"target": "",
+				"children": [],
+				
+				"open": null,
+				"isParent": null,
+				"checked": null,
+				"pId": 3
+			}
+		],
+		
+		"open": null,
+		"isParent": null,
+		"checked": null,
+		"pId": 1
+	},
+	{
+		"id": 4,
+		"name": "销售管理",
+		"href": "",
+		"icon": "&#xe611;",
+		"spread": false,
+		"target": "",
+		"children": [
+			{
+				"id": 12,
+				"name": "商品销售",
+				"href": "",
+				"icon": "&#xe65b;",
+				"spread": false,
+				"target": "",
+				"children": [],
+				
+				"open": null,
+				"isParent": null,
+				"checked": null,
+				"pId": 4
+			},
+			{
+				"id": 13,
+				"name": "销售退货",
+				"href": "",
+				"icon": "&#xe770;",
+				"spread": false,
+				"target": "",
+				"children": [],
+				
+				"open": null,
+				"isParent": null,
+				"checked": null,
+				"pId": 4
+			}
+		],
+		
+		"open": null,
+		"isParent": null,
+		"checked": null,
+		"pId": 1
+	},
+	{
+		"id": 5,
+		"name": "系统管理",
+		"href": "",
+		"icon": "&#xe614;",
+		"spread": false,
+		"target": "",
+		"children": [
+			{
+				"id": 14,
+				"name": "部门管理",
+				"href": "../dept/toDeptManager.action",
+				"icon": "&#xe770;",
+				"spread": false,
+				"target": "",
+				"children": [],
+				
+				"open": null,
+				"isParent": null,
+				"checked": null,
+				"pId": 5
+			},
+			{
+				"id": 15,
+				"name": "菜单管理",
+				"href": "../menu/toMenuManager.action",
+				"icon": "&#xe857;",
+				"spread": false,
+				"target": "",
+				"children": [],
+				
+				"open": null,
+				"isParent": null,
+				"checked": null,
+				"pId": 5
+			},
+			{
+				"id": 16,
+				"name": "权限管理",
+				"href": "../permission/toPermissionManager.action",
+				"icon": "&#xe857;",
+				"spread": false,
+				"target": "",
+				"children": [],
+				
+				"open": null,
+				"isParent": null,
+				"checked": null,
+				"pId": 5
+			},
+			{
+				"id": 17,
+				"name": "角色管理",
+				"href": "../role/toRoleManager.action",
+				"icon": "&#xe650;",
+				"spread": false,
+				"target": "",
+				"children": [],
+				
+				"open": null,
+				"isParent": null,
+				"checked": null,
+				"pId": 5
+			},
+			{
+				"id": 18,
+				"name": "用户管理",
+				"href": "../user/toUserManager.action",
+				"icon": "&#xe612;",
+				"spread": false,
+				"target": "",
+				"children": [],
+				
+				"open": null,
+				"isParent": null,
+				"checked": null,
+				"pId": 5
+			}
+		],
+		
+		"open": null,
+		"isParent": null,
+		"checked": null,
+		"pId": 1
+	},
+	{
+		"id": 6,
+		"name": "其它管理",
+		"href": "",
+		"icon": "&#xe628;",
+		"spread": false,
+		"target": "",
+		"children": [
+			{
+				"id": 21,
+				"name": "登陆日志",
+				"href": "../logInfo/toLogInfoManager.action",
+				"icon": "&#xe675;",
+				"spread": false,
+				"target": null,
+				"children": [],
+				
+				"open": null,
+				"isParent": null,
+				"checked": null,
+				"pId": 6
+			},
+			{
+				"id": 22,
+				"name": "系统公告",
+				"href": "../notice/toNoticeManager.action",
+				"icon": "&#xe756;",
+				"spread": false,
+				"target": null,
+				"children": [],
+				
+				"open": null,
+				"isParent": null,
+				"checked": null,
+				"pId": 6
+			},
+			{
+				"id": 23,
+				"name": "图标管理",
+				"href": "../resources/page/icon.html",
+				"icon": "&#xe670;",
+				"spread": false,
+				"target": null,
+				"children": [],
+				
+				"open": null,
+				"isParent": null,
+				"checked": null,
+				"pId": 6
+			}
+		],
+		
+		"open": null,
+		"isParent": null,
+		"checked": null,
+		"pId": 1
+	},
+	{
+		"id": 58,
+		"name": "流程管理",
+		"href": "",
+		"icon": "&#xe679;",
+		"spread": true,
+		"target": "",
+		"children": [
+			{
+				"id": 59,
+				"name": "流程管理",
+				"href": "../workFlow/toWorkFlowManager.action",
+				"icon": "&#xe66e;",
+				"spread": false,
+				"target": "",
+				"children": [],
+				
+				"open": null,
+				"isParent": null,
+				"checked": null,
+				"pId": 58
+			},
+			{
+				"id": 60,
+				"name": "查询历史流程",
+				"href": "",
+				"icon": "&#xe674;",
+				"spread": false,
+				"target": "",
+				"children": [],
+				
+				"open": null,
+				"isParent": null,
+				"checked": null,
+				"pId": 58
+			}
+		],
+		
+		"open": null,
+		"isParent": null,
+		"checked": null,
+		"pId": 1
+	},
+	{
+		"id": 61,
+		"name": "审批管理",
+		"href": "",
+		"icon": "&#xe653;",
+		"spread": true,
+		"target": "",
+		"children": [
+			{
+				"id": 62,
+				"name": "请假单管理",
+				"href": "../leaveBill/toLeaveBillManager.action",
+				"icon": "&#xe66a;",
+				"spread": false,
+				"target": "",
+				"children": [],
+				
+				"open": null,
+				"isParent": null,
+				"checked": null,
+				"pId": 61
+			},
+			{
+				"id": 63,
+				"name": "我的待办任务",
+				"href": "../workFlow/toTaskManager.action",
+				"icon": "&#xe668;",
+				"spread": false,
+				"target": "",
+				"children": [],
+				
+				"open": null,
+				"isParent": null,
+				"checked": null,
+				"pId": 61
+			},
+			{
+				"id": 64,
+				"name": "我的审批记录",
+				"href": "",
+				"icon": "&#xe665;",
+				"spread": false,
+				"target": "",
+				"children": [],
+				
+				"open": null,
+				"isParent": null,
+				"checked": null,
+				"pId": 61
+			}
+		],
+		"open": null,
+		"isParent": null,
+		"checked": null,
+		"pId": 1
+	}
+]

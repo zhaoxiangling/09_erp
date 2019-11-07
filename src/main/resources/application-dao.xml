@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 加入头文件 -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop.xsd
+    http://www.springframework.org/schema/tx
+	http://www.springframework.org/schema/tx/spring-tx.xsd
+	">
+	<!-- 解析配置文件 ${username}在spring里面默认取的是当前主机的名字 如果想禁用取主机名可以使用system-properties-mode="FALLBACK" -->
+	<context:property-placeholder location="classpath:db.properties"
+		system-properties-mode="FALLBACK" />
+
+	<!-- 声明数据源 使用spring自带的数据源 -->
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<!-- 注入相关属性 -->
+		<property name="driverClassName" value="${driver}"></property>
+		<property name="url" value="${url}"></property>
+		<property name="username" value="${username}"></property>
+		<property name="password" value="${password}"></property>
+	</bean>
+	<!-- 声明sqlSessionFactory -->
+	<bean id="sqlSessionFactory"  class="org.mybatis.spring.SqlSessionFactoryBean">
+		<!-- 注入数据源 -->
+		<property name="dataSource" ref="dataSource"></property>
+		<!-- 注入mybatis.cfg.xml -->
+		<property name="configLocation" value="classpath:mybatis.cfg.xml"></property>
+		<!-- 注入mapping -->
+		<property name="mapperLocations">
+			<array>
+				<value>classpath:com/sxt/sys/mapper/*.xml</value>
+				<value>classpath:com/sxt/bus/mapper/*.xml</value>
+			</array>
+		</property>
+		<!-- 注入分页插件 -->
+		<property name="plugins">
+			<array>
+				<bean class="com.github.pagehelper.PageInterceptor"></bean>
+			</array>
+		</property>
+	</bean>
+	
+	<!-- 配置接口扫描
+		因为UserMapper.java没有实现类，所以必须依靠cglib在内存里构造代理对象
+	 -->
+	 <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+	 	<!-- 注入mapper接口所在的包 
+	 	以下的配置是扫描某一个包，如果系统中mapper文件不只在一个包下面
+	 	-->
+	 	<property name="basePackage" value="com.sxt.sys.mapper,com.sxt.bus.mapper" ></property>
+	 	<!-- 注入sqlSessionFactory
+	 	这里要求是sqlSessionFactoryBeanName也就是IOC容器里面的sqlSessionFactory对象
+	 	 -->
+	 	<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
+	 </bean>
+	
+</beans>
+
+

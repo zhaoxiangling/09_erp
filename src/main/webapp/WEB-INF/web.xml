@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	id="WebApp_ID" version="3.0">
+	<display-name>09_erp</display-name>
+	<!-- 配置spring的编码过滤器 开始 -->
+	<filter>
+		<filter-name>encodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<!-- 配置编码的值 -->
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>utf-8</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<!-- <url-pattern>*.action</url-pattern> -->
+		<!-- 指定某个servlet去过滤 -->
+		<servlet-name>springmvc</servlet-name>
+	</filter-mapping>
+
+	<!-- 配置spring的编码过滤器 结束 -->
+
+	<!-- shiro集成开始 -->
+	<!-- shiro过虑器，DelegatingFilterProxy通过代理模式将spring容器中的bean和filter关联起来 -->
+	<filter>
+		<filter-name>shiroFilter</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+		<!-- 设置true由servlet容器控制filter的生命周期 -->
+		<init-param>
+			<param-name>targetFilterLifecycle</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		<!-- 设置spring容器filter的bean id，如果不设置则找与filter-name一致的bean -->
+		<init-param>
+			<param-name>targetBeanName</param-name>
+			<param-value>shiroFilter</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>shiroFilter</filter-name>
+		<!-- 代表访问springmvc【是springmvc的前端控制器的servlet的名字】这个Servlet时就启用shiro的认证和授权 -->
+		<servlet-name>springmvc</servlet-name>
+		<!-- 拦截所有的url 包括 css js image 等等 -->
+		<!-- <url-pattern>/*</url-pattern> -->
+	</filter-mapping>
+	<!-- shiro集成结束 -->
+
+
+	<!-- 配置spring的监听器，在项目启动时加载applicationContext.xml 开始 -->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	<!-- 配置xml地址 -->
+	<context-param>
+		<!--contextConfigLocation org.springframework.web.context.ContextLoader里面的第102行 -->
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:applicationContext.xml</param-value>
+	</context-param>
+	<!-- 配置spring的监听器，在项目启动时加载applicationContext.xml 结束 -->
+
+	<!-- 配置前端控制器开始 -->
+	<servlet>
+		<servlet-name>springmvc</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<!-- 加载springmvc.xml -->
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath:springmvc.xml</param-value>
+		</init-param>
+		<!-- 启动加载 -->
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>springmvc</servlet-name>
+		<!-- 访问以.action结尾 由DispatcherServlet进行解析 user.action jquery.js -->
+		<url-pattern>*.action</url-pattern>
+		<!-- 所以访问的地址都由DispatcherServlet进行解析，对于静态文件的解析需要配置不让DispatcherServlet进行解析 
+			restful里面使用 -->
+		<!-- <url-pattern>/</url-pattern> -->
+		<!-- 样配置不对，使用这种配置，最终要转发到一个jsp页面时， 仍然会由DispatcherServlet解析jsp地址，不能根据jsp页面找到handler，会报错。 
+			index.jsp -->
+		<!-- <url-pattern>/*</url-pattern> -->
+	</servlet-mapping>
+	<!-- 配置前端控制器结束 -->
+
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+</web-app>

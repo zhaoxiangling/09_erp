@@ -1,0 +1,38 @@
+[
+	{
+		"name": "文章列表",
+		"icon": "icon-text",
+		"href": "resources/page/news/newsList.html",
+		"spread": false
+	},
+	{
+		"name": "图片管理",
+		"icon": "&#xe634;",
+		"href": "resources/page/img/images.html",
+		"spread": false
+	},
+	{
+		"name": "其他页面",
+		"icon": "&#xe630;",
+		"href": "",
+		"spread": false,
+		"children": [
+			{
+				"name": "404页面",
+				"icon": "&#xe61c;",
+				"href": "resources/page/404.html",
+				"spread": false
+			},
+			{
+				"name": "登录",
+				"icon": "&#xe609;",
+				"href": "resources/page/login/login.html",
+				"spread": false,
+				"target": "_blank"
+			}
+		]
+	}
+]
+
+
+

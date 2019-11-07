@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 引入头文件 -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+	<!-- 扫描 -->
+	<context:component-scan
+		base-package="com.sxt.sys.controller"></context:component-scan>
+	<context:component-scan
+		base-package="com.sxt.bus.controller"></context:component-scan>
+	<!-- 合并注解映射器和适配器的配置 对映射器和适配器进行加强 如数据转化，如把对象转成json字符串等等 -->
+	<mvc:annotation-driven></mvc:annotation-driven>
+
+	<!-- 配置文件上传的二进制流的解析器 -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- 指定文件上传的编码 -->
+		<property name="defaultEncoding" value="UTF-8"></property>
+		<!-- 指定文件上传的临时目录 -->
+		<property name="uploadTempDir" value="/upload/temp"></property>
+		<!-- 设置文件上传的最大大小 20m -->
+		<property name="maxUploadSize" value="21474836480"></property>
+	</bean>
+
+	<!-- 配置视图解析器 -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<!-- 添加响应页面地址的前缀 -->
+		<property name="prefix" value="/WEB-INF/view/"></property>
+		<!-- 添加响应页面地址的后缀 -->
+		<property name="suffix" value=".jsp"></property>
+	</bean>
+</beans>
