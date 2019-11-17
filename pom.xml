@@ -24,7 +24,6 @@
 		<log4j.version>1.2.17</log4j.version>
 		<shiro.version>1.3.2</shiro.version>
 		<pinyin.version>2.5.1</pinyin.version>
-		<activiti.version>5.22.0</activiti.version>
 	</properties>
 
 	<dependencies>
@@ -171,17 +170,7 @@
 			<artifactId>pinyin4j</artifactId>
 			<version>${pinyin.version}</version>
 		</dependency>
-		<!-- activiti集成 -->
-		<dependency>
-			<groupId>org.activiti</groupId>
-			<artifactId>activiti-engine</artifactId>
-			<version>${activiti.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.activiti</groupId>
-			<artifactId>activiti-spring</artifactId>
-			<version>${activiti.version}</version>
-		</dependency>
+
 	</dependencies>
 	<build>
 		<finalName>01_carrent</finalName>
