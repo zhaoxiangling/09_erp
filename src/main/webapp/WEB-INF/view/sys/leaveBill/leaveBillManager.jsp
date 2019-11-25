@@ -65,12 +65,12 @@
    		 <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
    		 <a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">删除</a>
 	{{#  } else if(d.state==1){ }}
- 		<a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="view">审批查询</a>
+ 		<a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="viewSpProcess">审批进度查询</a>
     {{#  } else if(d.state==2){ }}	
-		 <a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="view">审批查询</a>
+		 <a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="viewSpProcess">审批进度查询</a>
  	 {{#  } else if(d.state==3){ }}	
 		<a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">删除</a>
-    	<a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="view">审批查询</a>
+    	<a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="viewSpProcess">审批进度查询</a>
 	{{#  } }}  
 </script>
 <script type="text/javascript" src="${ctx }/resources/layui/layui.js"></script>
@@ -205,8 +205,10 @@
                         layer.close(index);
                     })
                 });
-            }else if(layEvent==="view"){
-            	show(data.id);
+            }else if(layEvent==="startProcess"){
+            	startProcess(data);//请假单的对象
+            }else if(layEvent==='viewSpProcess'){
+            	viewSpProcess(data);
             }
         });
         //批量删除
@@ -231,12 +233,26 @@
                 layer.msg("请选择需要删除的请假单");
             }
         }
-        function show(id){
-        	var index = layui.layer.open({
-                title : "查看请假单",
+        //启动流程
+        function startProcess(data){
+        	 layer.confirm('确定要提交【'+data.title+'】请假单吗？',{icon:3, title:'提示信息'},function(index){
+                 $.post("${ctx}/workFlow/startProcess.action",{
+                     id : data.id  //将需要删除的id作为参数传入
+                 },function(data){
+                     //刷新table
+                     tableIns.reload();
+                     //关闭提示框
+                     layer.close(index);
+                 })
+             });
+        }
+        //查看审批进度
+        function viewSpProcess(data){
+            var index = layui.layer.open({
+                title : data.title+"的审批进度",
                 type : 2,
                 area:["800px","500px"],
-                content : "${ctx }/leaveBill/showLeaveBill.action?id="+id,
+                content : "${ctx }/workFlow/viewSpProcess.action?id="+data.id,
                 success : function(layero, index){
                     setTimeout(function(){
                         layui.layer.tips('点击此处返回请假单列表', '.layui-layer-setwin .layui-layer-close', {

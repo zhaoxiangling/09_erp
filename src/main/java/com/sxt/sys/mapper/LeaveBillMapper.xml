@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sxt.sys.mapper.LeaveBillMapper">
+	<resultMap id="BaseResultMap"
+		type="com.sxt.sys.domain.LeaveBill">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="title" property="title" jdbcType="VARCHAR" />
+		<result column="content" property="content" jdbcType="VARCHAR" />
+		<result column="days" property="days" jdbcType="DOUBLE" />
+		<result column="leavetime" property="leavetime"
+			jdbcType="TIMESTAMP" />
+		<result column="state" property="state" jdbcType="VARCHAR" />
+		<result column="userid" property="userid" jdbcType="INTEGER" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, title, content, days, leavetime, state, userid
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from sys_leavebill
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey"
+		parameterType="java.lang.Integer">
+		delete from sys_leavebill
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.sxt.sys.domain.LeaveBill">
+		insert into sys_leavebill (id, title, content,
+		days, leavetime, state,
+		userid)
+		values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR},
+		#{content,jdbcType=VARCHAR},
+		#{days,jdbcType=DOUBLE}, #{leavetime,jdbcType=TIMESTAMP}, #{state,jdbcType=VARCHAR},
+		#{userid,jdbcType=INTEGER})
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.sxt.sys.domain.LeaveBill">
+		insert into sys_leavebill
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="title != null">
+				title,
+			</if>
+			<if test="content != null">
+				content,
+			</if>
+			<if test="days != null">
+				days,
+			</if>
+			<if test="leavetime != null">
+				leavetime,
+			</if>
+			<if test="state != null">
+				state,
+			</if>
+			<if test="userid != null">
+				userid,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="title != null">
+				#{title,jdbcType=VARCHAR},
+			</if>
+			<if test="content != null">
+				#{content,jdbcType=VARCHAR},
+			</if>
+			<if test="days != null">
+				#{days,jdbcType=DOUBLE},
+			</if>
+			<if test="leavetime != null">
+				#{leavetime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="state != null">
+				#{state,jdbcType=VARCHAR},
+			</if>
+			<if test="userid != null">
+				#{userid,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.sxt.sys.domain.LeaveBill">
+		update sys_leavebill
+		<set>
+			<if test="title != null">
+				title = #{title,jdbcType=VARCHAR},
+			</if>
+			<if test="content != null">
+				content = #{content,jdbcType=VARCHAR},
+			</if>
+			<if test="days != null">
+				days = #{days,jdbcType=DOUBLE},
+			</if>
+			<if test="leavetime != null">
+				leavetime = #{leavetime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="state != null">
+				state = #{state,jdbcType=VARCHAR},
+			</if>
+			<if test="userid != null">
+				userid = #{userid,jdbcType=INTEGER},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.sxt.sys.domain.LeaveBill">
+		update sys_leavebill
+		set title = #{title,jdbcType=VARCHAR},
+		content = #{content,jdbcType=VARCHAR},
+		days = #{days,jdbcType=DOUBLE},
+		leavetime = #{leavetime,jdbcType=TIMESTAMP},
+		state = #{state,jdbcType=VARCHAR},
+		userid = #{userid,jdbcType=INTEGER}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<!-- 查询请假单的信息 -->
+	<select id="queryAllLeaveBill" resultMap="BaseResultMap"
+		parameterType="com.sxt.sys.vo.LeaveBillVo">
+		select
+		<include refid="Base_Column_List" />
+		from sys_leavebill
+		<where>
+			<if test="title!=null">
+				and title like "%"#{title}"%"
+			</if>
+			<if test="content!=null">
+				and content like "%"#{content}"%"
+			</if>
+			<if test="startTime!=null">
+				and leavetime>=#{startTime}
+			</if>
+			<if test="endTime!=null">
+				and leavetime  <![CDATA[<=]]>
+				#{endTime}
+			</if>
+			<if test="userid!=null">
+				and userid=#{userid}
+			</if>
+		</where>
+		order by leavetime desc
+
+	</select>
+</mapper>

@@ -44,7 +44,7 @@
 <!--操作-->
 <script type="text/html" id="deploymentListBar">
     <a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">删除</a>
-    <a class="layui-btn layui-btn-xs" lay-event="edit">查看流程图</a>
+    <a class="layui-btn layui-btn-xs" lay-event="viewProcessImage">查看流程图</a>
 </script>
 <script type="text/javascript" src="${ctx }/resources/layui/layui.js"></script>
 </body>
@@ -110,7 +110,7 @@
             });
         });
         //监听头工具栏事件
-        table.on('toolbar(workFlowList)', function(obj){
+        table.on('toolbar(deploymentList)', function(obj){
             switch(obj.event){
 	            case 'add':
 	               	toAddWorkFlow();
@@ -121,12 +121,12 @@
             };
         });
 
-        //打开  添加流程的弹出层
+        //打开 部署流程的弹出层
         function toAddWorkFlow(){
             var index = layui.layer.open({
                 title : "添加流程",
                 type : 2,//ifream层
-                area:["800px","500px"],
+                area:["600px","300px"],
                 content : "${ctx }/workFlow/toAddWorkFlow.action",
                 success : function(layero, index){
                     setTimeout(function(){
@@ -143,29 +143,30 @@
             })
         }
         //列表操作
-        table.on('tool(workFlowList)', function(obj){
+        table.on('tool(deploymentList)', function(obj){
             var layEvent = obj.event,
                 data = obj.data;
              if(layEvent === 'del'){ //删除
                 layer.confirm('确定删【'+data.name+'】流程吗？',{icon:3, title:'提示信息'},function(index){
                     $.post("${ctx}/workFlow/deleteWorkFlow.action",{
-                        id : data.id  //将需要删除的id作为参数传入
+                        deploymentId : data.id  //将需要删除的id作为参数传入
                     },function(data){
                         //刷新table
-                        tableIns.reload();
+                        tableDeploymentIns.reload();
+                        tableprocessDefinitionIns.reload();
                         //关闭提示框
                         layer.close(index);
                     })
                 });
-            }else if(layEvent==="toSelectPermisison"){
+            }else if(layEvent==="viewProcessImage"){
             	//传入流程对象
-            	openSelectPermisison(data);
+            	viewProcessImage(data);
             }
         });
         //批量删除
         function batchDelete(){
             //得到当前表格里面的checkbox的选中对象集合
-            var checkStatus = table.checkStatus('workFlowListTable'),//选中状态
+            var checkStatus = table.checkStatus('deploymentListTable'),//选中状态
                 data = checkStatus.data;//选中的对象集
             var ids="a=1";
             if(data.length > 0) {
@@ -175,7 +176,8 @@
                 layer.confirm('确定删除选中的流程？', {icon: 3, title: '提示信息'}, function (index) {
                     $.post("${ctx}/workFlow/batchDeleteWorkFlow.action?"+ids,function(data){
                         //刷新table
-                        tableIns.reload();
+                        tableDeploymentIns.reload();
+                        tableprocessDefinitionIns.reload();
                         //关闭提示框
                         layer.close(index);
                     })
@@ -183,6 +185,28 @@
             }else{
                 layer.msg("请选择需要删除的流程");
             }
+        }
+        
+        //查看流程图
+        function viewProcessImage(data){
+        	 var index = layui.layer.open({
+                 title : "查看["+data.name+"]流程图",
+                 type : 2,//ifream层
+                 area:["500px","600px"],
+                 content : "${ctx }/workFlow/toViewProcessImage.action?deploymentId="+data.id,
+                 success : function(layero, index){
+                     setTimeout(function(){
+                         layui.layer.tips('点击此处返回流程列表', '.layui-layer-setwin .layui-layer-close', {
+                             tips: 3
+                         });
+                     },500)
+                 }
+             })
+             //layui.layer.full(index);
+             //改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
+             $(window).on("resize",function(){
+                 layui.layer.full(index);
+             })
         }
     })
     

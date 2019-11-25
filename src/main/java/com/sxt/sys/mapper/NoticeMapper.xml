@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sxt.sys.mapper.NoticeMapper" >
+  <resultMap id="BaseResultMap" type="com.sxt.sys.domain.Notice" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="opername" property="opername" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.sxt.sys.domain.Notice" extends="BaseResultMap" >
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, title, createtime, opername
+  </sql>
+  <sql id="Blob_Column_List" >
+    content
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from sys_notice
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sys_notice
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.sxt.sys.domain.Notice" >
+    insert into sys_notice (id, title, createtime, 
+      opername, content)
+    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, 
+      #{opername,jdbcType=VARCHAR}, #{content,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sxt.sys.domain.Notice" >
+    insert into sys_notice
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="opername != null" >
+        opername,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="opername != null" >
+        #{opername,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sxt.sys.domain.Notice" >
+    update sys_notice
+    <set >
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="opername != null" >
+        opername = #{opername,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.sxt.sys.domain.Notice" >
+    update sys_notice
+    set title = #{title,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      opername = #{opername,jdbcType=VARCHAR},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sxt.sys.domain.Notice" >
+    update sys_notice
+    set title = #{title,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      opername = #{opername,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 全查询 -->
+  <select id="queryAllNotice" resultMap="ResultMapWithBLOBs" parameterType="com.sxt.sys.vo.NoticeVo" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from sys_notice
+   	<where>
+   		<if test="title!=null">
+   			and title like "%"#{title}"%"
+   		</if>
+   		<if test="content!=null">
+   			and content like "%"#{content}"%"
+   		</if>
+   		<if test="opername!=null">
+   			and opername like "%"#{opername}"%"
+   		</if>
+   		<if test="startTime!=null">
+   			and createtime>=#{startTime}
+   		</if>
+   			<if test="endTime!=null">
+   			and createtime  <![CDATA[<=]]> #{startTime}
+   		</if>
+   	</where>
+   	order by createtime desc
+  </select>
+</mapper>

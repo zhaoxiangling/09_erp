@@ -30,7 +30,9 @@
 			<tx:method name="add*" propagation="REQUIRED" />
 			<tx:method name="save*" propagation="REQUIRED" />
 			<tx:method name="insert*" propagation="REQUIRED" />
+			<tx:method name="start*" propagation="REQUIRED" />
 			<tx:method name="update*" propagation="REQUIRED" />
+			<tx:method name="complete*" propagation="REQUIRED" />
 			<tx:method name="delete*" propagation="REQUIRED" />
 			<tx:method name="del*" propagation="REQUIRED" />
 			<tx:method name="load*" propagation="REQUIRED" />

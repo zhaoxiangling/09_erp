@@ -30,7 +30,6 @@ public class LeaveBillController {
 	 */
 	@RequestMapping("toLeaveBillManager")
 	public String toLeaveBillManager() {
-
 		return "sys/leaveBill/leaveBillManager";
 	}
 	

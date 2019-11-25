@@ -17,8 +17,8 @@ public class LeaveBill {
     @DateTimeFormat(pattern="yyyy-MM-dd")
     @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
     private Date leavetime;
-    //0未提交  1审批中  2审批完成  3  已放弃
-    private String state;
+
+    private String state;  //0未提交  1审批中  2审批完成  3  已放弃
 
     private Integer userid;
 
